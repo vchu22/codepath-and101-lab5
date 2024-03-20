@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         }
         val button = findViewById<Button>(R.id.petButton)
         val imageView = findViewById<ImageView>(R.id.petImage)
-        getDogImageURL()
+        getCatImageURL()
         Log.d("petImageURL", "pet image URL set")
         getNextImage(button, imageView)
     }
@@ -45,6 +45,25 @@ class MainActivity : AppCompatActivity() {
                 throwable: Throwable?
             ) {
                 Log.d("Dog Error", errorResponse)
+            }
+        }]
+    }
+    private fun getCatImageURL() {
+        val client = AsyncHttpClient()
+        client["https://api.thecatapi.com/v1/images/search", object : JsonHttpResponseHandler() {
+            override fun onSuccess(statusCode: Int, headers: Headers, json: JsonHttpResponseHandler.JSON) {
+                Log.d("Cat", "response successful$json")
+                var resultsJSON = json.jsonArray.getJSONObject(0)
+                petImageURL = resultsJSON.getString("url")
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Headers?,
+                errorResponse: String,
+                throwable: Throwable?
+            ) {
+                Log.d("Cat Error", errorResponse)
             }
         }]
     }
