@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         client["https://api.thecatapi.com/v1/images/search", object : JsonHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Headers, json: JsonHttpResponseHandler.JSON) {
                 Log.d("Cat", "response successful$json")
-                var resultsJSON = json.jsonArray.getJSONObject(0)
+                val resultsJSON = json.jsonArray.getJSONObject(0)
                 petImageURL = resultsJSON.getString("url")
             }
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getNextImage(button: Button, imageView: ImageView) {
         button.setOnClickListener {
-            getDogImageURL()
+            getCatImageURL()
 
             Glide.with(this)
                 .load(petImageURL)
