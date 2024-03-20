@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     var petImageURL = ""
@@ -26,7 +27,15 @@ class MainActivity : AppCompatActivity() {
         }
         val button = findViewById<Button>(R.id.petButton)
         val imageView = findViewById<ImageView>(R.id.petImage)
-        getCatImageURL()
+
+        val choice = Random.nextInt(2)
+        // pick dog or cat
+        if (choice == 0) {
+            getDogImageURL()
+        }
+        else {
+            getCatImageURL()
+        }
         Log.d("petImageURL", "pet image URL set")
         getNextImage(button, imageView)
     }
@@ -69,7 +78,14 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getNextImage(button: Button, imageView: ImageView) {
         button.setOnClickListener {
-            getCatImageURL()
+            // pick dog or cat
+            val choice = Random.nextInt(2)
+            if (choice == 0) {
+                getDogImageURL()
+            }
+            else {
+                getCatImageURL()
+            }
 
             Glide.with(this)
                 .load(petImageURL)
